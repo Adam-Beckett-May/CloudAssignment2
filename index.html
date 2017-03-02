@@ -43,7 +43,6 @@
       }
 
       function placeMarker(map, location){
-      var content = 'nope';
       var marker = new google.maps.Marker({
       position: location,
       map: map
@@ -52,17 +51,15 @@
       geocoder.geocode({'location': location}, function(results, status) {
       if (status === 'OK') {
       if (results[1]) {
-      content = results[1].formatted_address;
+      var infoWindow2 = new google.maps.InfoWindow;
+      infoWindow2.setContent(results[1].formatted_address);
+      infoWindow2.open(map,marker);
       }else{
       window.alert('No resutls found');
       }}else{
       window.alert('Geocoder failed due to: ' + status);
       }
       });
-      var infoWindow2 = new google.maps.InfoWindow({
-      content: 'Lat: ' + location.lat() + '<br>Long: ' + location.lng() + '<br>' + content
-      });
-      infoWindow2.open(map,marker);
       }
 	
       function handleLocationError(browserHasGeolocation, infoWindow, pos){
